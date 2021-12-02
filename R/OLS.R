@@ -14,17 +14,14 @@
 #'@param through_origin logical. If TRUE the model is forced to go through
 #'origin. The default is FALSE.
 #'
-#'@return
-#'@param design_matrix The design matrix used.
-#'@param response The response used.
-#'@param coefficients a named vector of estimated coefficients.
-#'@param residuals The response minus fitted values.
-#'@param df The degree of freedom of residuals.
-#'@param through_origin A logical indicator of whether the model pass the origin.
-#'@param variance A vector containing basic analysis of variance of fitted model,
-#'including SSE, SSR, SST and R squared statistics.
-#'@param summary Summary of the model results, containing estimates, results of
-#'hypothesis test (p value) and fitting results (R-square statistics).
+#'@return A list of results of fitted model. design_matrix: The design matrix used.
+#'response: The response used. coefficients: a named vector of estimated coefficients.
+#'residuals: The response minus fitted values. df: The degree of freedom of residuals.
+#'through_origin: A logical indicator of whether the model pass the origin.
+#'variance: A vector containing basic analysis of variance of fitted model,
+#'including SSE, SSR, SST and R squared statistics. summary: Summary of the
+#'model results, containing estimates, results of hypothesis test (p value) and
+#'fitting results (R-square statistics).
 #'
 #'@examples
 #'## Build-in data set mtcars in R
@@ -98,7 +95,7 @@ OLS = function(data, outcome, predictors, through_origin=FALSE){
 #'outcome = "mpg"
 #'predictors = c("cyl", "hp", "wt")
 #'m1 = OLS(mtcars, outcome, predictors, through_origin=FALSE)
-#'CI(m1)
+#'CI(m1, c("intercept", "cyl", "hp", "wt"), level=0.95)
 #'CI(m1,"cyl",level=0.9)
 #'
 #'@export

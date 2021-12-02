@@ -50,10 +50,6 @@ m1$variance
 summary(m3)
 ```
 
-```{r}
-bench::mark(m1$coefficients, m3$coefficients)
-```
-
 There are other function in the package to abundant the analysis. CI gives confidence interval of estimates in the model. Proper confidence level and variables can be selected.
 
 ```{r}
@@ -69,9 +65,6 @@ CI(m1, c("cyl", "hp"), level=0.9)
 confint(m3)
 ```
 
-```{r}
-```
-
 AOV function gives a detailed analysis of variance table for linear model.
 
 ```{r}
@@ -85,8 +78,5 @@ same.
 ```{r}
 AOV(m1)
 anova(m3)
-```
-
-```{r}
 ```
 
