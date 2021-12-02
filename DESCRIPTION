@@ -1,0 +1,19 @@
+Package: OLS
+Type: Package
+Title: Linear Regression With Ordinary Least Squares
+Version: 0.1.0
+Author: Ruiwen Zhou
+Maintainer: Ruiwen Zhou <zrayw@umich.edu>
+Description: The OLS package is developed for biostat 625 hw4. Main function OLS
+  solve for linear regression using ordinary least squares method. Other 
+  functions such as CI and AOV further confidence interval and anova table to 
+  provide a better analysis for linear regression model.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr

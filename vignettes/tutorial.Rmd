@@ -1,0 +1,92 @@
+---
+title: "tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(OLS)
+```
+
+The main part in this package is to train a linear regression model using 
+ordinary least square method by function OLS. Inputting data, target response 
+and predictor of interest, OLS fits linear model and provides results in a list including estimates, residuals and its degree of freedom. Value variance gives 
+R squared statistics to evaluate the fitting result. Value summary gives a integrated output of fitted model, including estimates and hypothesis tests.
+
+```{r}
+outcome1 = "mpg"
+predictors1 = c("cyl", "hp", "wt")
+m1 = OLS(mtcars, outcome1, predictors1, through_origin=FALSE)
+m1$coefficients
+m1$residuals
+m1$df.residuals
+m1$variance
+m1$summary
+```
+
+OLS can also fit linear model through the origin.
+
+```{r}
+m2 = OLS(mtcars, outcome1, predictors1, through_origin=TRUE)
+m2$summary
+```
+
+Compare OLS function with build-in function lm() in terms of accuracy and time cost. As we can see from below, output of two functions are exactly the same.
+
+```{r}
+m3 = lm(mpg~cyl+hp+wt, data=mtcars)
+m1$summary
+m1$variance
+summary(m3)
+```
+
+```{r}
+bench::mark(m1$coefficients, m3$coefficients)
+```
+
+There are other function in the package to abundant the analysis. CI gives confidence interval of estimates in the model. Proper confidence level and variables can be selected.
+
+```{r}
+CI(m1, c("cyl", "hp"), level=0.9)
+```
+
+Compare CI function with build-in function confint() in terms of accuracy and 
+time cost. As we can see from below, output of two functions are exactly the 
+same.
+
+```{r}
+CI(m1, c("cyl", "hp"), level=0.9)
+confint(m3)
+```
+
+```{r}
+```
+
+AOV function gives a detailed analysis of variance table for linear model.
+
+```{r}
+AOV(m1)
+```
+
+Compare AOV function with build-in function anova() in terms of accuracy and 
+time cost. As we can see from below, output of two functions are exactly the 
+same.
+
+```{r}
+AOV(m1)
+anova(m3)
+```
+
+```{r}
+```
+
