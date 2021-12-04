@@ -60,7 +60,7 @@ names(t2) = NULL
 bench::mark(t1, t2)
 ```
 
-There are other function in the package to abundant the analysis. CI gives confidence interval of estimates in the model. Proper confidence level and variables can be selected. The speed of CI function is slightly slower than confint().
+There are other function in the package to abundant the analysis. CI gives confidence interval of estimates in the model. Proper confidence level and variables can be selected. 
 
 ```{r}
 CI(m1, c("cyl", "hp"), level=0.9)
@@ -68,7 +68,7 @@ CI(m1, c("cyl", "hp"), level=0.9)
 
 Compare CI function with build-in function confint() in terms of accuracy and 
 time cost. As we can see from below, output of two functions are exactly the 
-same. 
+same. The speed of CI function is slightly slower than confint().
 
 ```{r}
 CI(m1, c("cyl", "hp"), level=0.9)
@@ -91,10 +91,19 @@ AOV(m1)
 
 Compare AOV function with build-in function anova() in terms of accuracy and 
 time cost. As we can see from below, output of two functions are exactly the 
-same.
+same. The speed of AOV function is slightly slower than anova().
 
 ```{r}
 AOV(m1)
 anova(m3)
 ```
 
+```{r}
+t5 = AOV(m1)[c("cyl", "hp", "wt", "Residuals"), "Sum of Squares"]
+t6 = anova(m3)[,"Sum Sq"]
+t5 = round(t5, digits=1)
+t6 = round(t6, digits=1)
+names(t5) = NULL
+names(t6) = NULL
+bench::mark(t5, t6)
+```
