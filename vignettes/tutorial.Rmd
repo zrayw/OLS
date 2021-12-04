@@ -41,7 +41,7 @@ m2 = OLS(mtcars, outcome1, predictors1, through_origin=TRUE)
 m2$summary
 ```
 
-Compare OLS function with build-in function lm() in terms of accuracy and time cost. As we can see from below, output of two functions are exactly the same.
+Compare OLS function with build-in function lm() in terms of accuracy and time cost. As we can see from below, output of two functions are exactly the same. The speed of OLS function is slightly slower than lm().
 
 ```{r}
 m3 = lm(mpg~cyl+hp+wt, data=mtcars)
@@ -50,7 +50,17 @@ m1$variance
 summary(m3)
 ```
 
-There are other function in the package to abundant the analysis. CI gives confidence interval of estimates in the model. Proper confidence level and variables can be selected.
+```{r}
+t1 = m1$coefficients
+t1 = round(t1, digits=3)
+t2 = m3$coefficients
+t2 = round(t2, digits=3)
+names(t1) = NULL
+names(t2) = NULL
+bench::mark(t1, t2)
+```
+
+There are other function in the package to abundant the analysis. CI gives confidence interval of estimates in the model. Proper confidence level and variables can be selected. The speed of CI function is slightly slower than confint().
 
 ```{r}
 CI(m1, c("cyl", "hp"), level=0.9)
@@ -58,11 +68,19 @@ CI(m1, c("cyl", "hp"), level=0.9)
 
 Compare CI function with build-in function confint() in terms of accuracy and 
 time cost. As we can see from below, output of two functions are exactly the 
-same.
+same. 
 
 ```{r}
 CI(m1, c("cyl", "hp"), level=0.9)
 confint(m3)
+```
+
+```{r}
+t3 = CI(m1, c("cyl", "hp"), level=0.95)[,c("2.5 %", "97.5 %")]
+t4 = confint(m3, parm=c("cyl", "hp"))
+t3 = round(t3, digits=3)
+t4 = round(t4, digits=3)
+bench::mark(t3, t4)
 ```
 
 AOV function gives a detailed analysis of variance table for linear model.
